@@ -1,0 +1,46 @@
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+
+int N;
+cout &lt;&lt; &quot;Ingrese un numero: &quot;;
+cin &gt;&gt; N;
+
+cout &lt;&lt; &quot;\nTabla de multiplicar de &quot; &lt;&lt; N &lt;&lt; &quot;:\n&quot;;
+for (int i = 1; i &lt;= 10; i++) { // for para la tabla
+cout &lt;&lt; N &lt;&lt; &quot; x &quot; &lt;&lt; i &lt;&lt; &quot; = &quot; &lt;&lt; N * i &lt;&lt; endl;
+
+}
+
+int suma = 0;
+int i = 1;
+
+while (i &lt;= N) {
+suma += i;
+i++;
+}
+
+cout &lt;&lt; &quot;\nSuma desde 1 hasta &quot; &lt;&lt; N &lt;&lt; &quot;: &quot; &lt;&lt; suma &lt;&lt; endl;
+
+bool primo = true;
+
+if (N &lt;= 1) {
+primo = false;
+} else {
+for (int j = 2; j &lt; N; j++) { // verificamos divisores
+if (N % j == 0) {
+primo = false;
+break;
+}
+}
+}
+
+if (primo)
+cout &lt;&lt; N &lt;&lt; &quot; es primo.\n&quot;;
+
+else
+cout &lt;&lt; N &lt;&lt; &quot; no es primo.\n&quot;;
+
+return 0;
+}
