@@ -1,0 +1,45 @@
+#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+
+float num1;
+float num2;
+float suma;
+float resta;
+float producto;
+float division;
+
+cout &lt;&lt; &quot; Ingrese el primer número:&quot;;
+cin &gt;&gt; num1;
+cout &lt;&lt; &quot; Ingrese el segundo número:&quot;;
+cin &gt;&gt; num2;
+
+suma = num1 + num2;
+resta = num1 - num2;
+producto = num1 * num2;
+
+if (num2 != 0)
+{
+division = num1 / num2;
+cout &lt;&lt; &quot;Division:&quot; &lt;&lt; division &lt;&lt; endl;
+}
+cout &lt;&lt; &quot;Suma:&quot; &lt;&lt; suma &lt;&lt; endl;
+cout &lt;&lt; &quot;Resta:&quot; &lt;&lt; resta &lt;&lt; endl;
+cout &lt;&lt; &quot;Multiplicación:&quot; &lt;&lt; producto &lt;&lt; endl;
+
+if (num1&gt;num2)
+{
+
+cout &lt;&lt; &quot;El primer número es mayor que el segundo.&quot;;
+}else if (num1 == num2)
+{
+cout &lt;&lt; &quot;Los números son iguales&quot;;
+}
+else
+{
+cout &lt;&lt; &quot; El primer número es menor que el segundo&quot;;
+}
+return 0;
+}
