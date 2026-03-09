@@ -1,6 +1,132 @@
-class Program {
-    static void Main(string[] args) {
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
+// =============================
+// CLASE ABSTRACTA MATERIAL
+// =============================
+abstract class Material
+{
+    public string Titulo { get; set; }
+    public string Autor { get; set; }
+    public int Anno { get; set; }
+
+    public Material(string titulo, string autor, int anno)
+    {
+        Titulo = titulo;
+        Autor = autor;
+        Anno = anno;
+    }
+
+    public abstract void MostrarInfo();
+}
+
+// =============================
+// CLASE LIBRO
+// =============================
+class Libro : Material
+{
+    public string Genero { get; set; }
+    public int Paginas { get; set; }
+    public bool Disponible { get; set; } = true;
+
+    public Libro(string titulo, string autor, int anno, string genero, int paginas)
+        : base(titulo, autor, anno)
+    {
+        Genero = genero;
+        Paginas = paginas;
+    }
+
+    public override void MostrarInfo()
+    {
+        Console.WriteLine($"[LIBRO] {Titulo} - {Autor} ({Anno}) | {Genero} | {Paginas} paginas | Disponible: {Disponible}");
+    }
+}
+
+// =============================
+// CLASE REVISTA
+// =============================
+class Revista : Material
+{
+    public int Numero { get; set; }
+    public string Tema { get; set; }
+
+    public Revista(string titulo, string autor, int anno, int numero, string tema)
+        : base(titulo, autor, anno)
+    {
+        Numero = numero;
+        Tema = tema;
+    }
+
+    public override void MostrarInfo()
+    {
+        Console.WriteLine($"[REVISTA] {Titulo} - {Tema} ({Anno})");
+    }
+}
+
+// =============================
+// CLASE BIBLIOTECA
+// =============================
+class Biblioteca
+{
+    List<Material> catalogo = new List<Material>();
+
+    public void Agregar(Material m)
+    {
+        catalogo.Add(m);
+    }
+
+    public void ListarTodo()
+    {
+        foreach (var m in catalogo)
+            m.MostrarInfo();
+    }
+
+    public void ListarDisponibles()
+    {
+        var libros = catalogo.OfType<Libro>().Where(l => l.Disponible);
+
+        foreach (var l in libros)
+            l.MostrarInfo();
+    }
+
+    public void PrestarLibro(string titulo)
+    {
+        var libro = catalogo.OfType<Libro>()
+            .FirstOrDefault(l => l.Titulo.ToLower() == titulo.ToLower());
+
+        if (libro == null || !libro.Disponible)
+            throw new Exception("Libro no disponible.");
+
+        libro.Disponible = false;
+        Console.WriteLine("Libro prestado correctamente.");
+    }
+
+    public void DevolverLibro(string titulo)
+    {
+        var libro = catalogo.OfType<Libro>()
+            .FirstOrDefault(l => l.Titulo.ToLower() == titulo.ToLower());
+
+        if (libro == null)
+            throw new Exception("Libro no encontrado.");
+
+        libro.Disponible = true;
+        Console.WriteLine("Libro devuelto correctamente.");
+    }
+
+    public Material BuscarPorTitulo(string titulo)
+    {
+        return catalogo.FirstOrDefault(m => m.Titulo.ToLower() == titulo.ToLower());
+    }
+}
+
+// =============================
+// PROGRAMA PRINCIPAL
+// =============================
+class Program
+{
+    static void Main(string[] args)
+    {
         Biblioteca bib = new Biblioteca();
 
         // Datos iniciales
@@ -13,8 +139,8 @@ class Program {
 
         int opcion = 0;
 
-        while (opcion != 7) {
-
+        while (opcion != 7)
+        {
             Console.WriteLine("\n========= MENU BIBLIOTECA =========");
             Console.WriteLine("1. Ver catalogo completo");
             Console.WriteLine("2. Ver libros disponibles");
@@ -27,10 +153,10 @@ class Program {
 
             opcion = Convert.ToInt32(Console.ReadLine());
 
-            try {
-
-                switch (opcion) {
-
+            try
+            {
+                switch (opcion)
+                {
                     case 1:
                         bib.ListarTodo();
                         break;
@@ -63,7 +189,6 @@ class Program {
                         break;
 
                     case 6:
-
                         Console.Write("Titulo: ");
                         string titulo = Console.ReadLine();
 
@@ -92,13 +217,11 @@ class Program {
                         Console.WriteLine("Opcion invalida.");
                         break;
                 }
-
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine("Error: " + e.Message);
             }
-
         }
-
     }
 }
