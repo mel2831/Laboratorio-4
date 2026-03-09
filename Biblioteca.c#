@@ -1,28 +1,104 @@
-abstract class Material 
-{ 
-    public string Titulo { get; set; }
-    public string Autor { get; set; }
-    public int Anno { get; set; }
-    public abstract void MostrarInfo();
+class Program {
+    static void Main(string[] args) {
 
-}
-class Libro : Material
-{
-    public string Genero { get; set; }
-    public bool Disponible { get; set; } = true;
-    public override void MostrarInfo() =>
-        Console.WriteLine("$[LIBRO]{Titulo}-{ Autor}"); 
-}
+        Biblioteca bib = new Biblioteca();
 
-class Biblioteca 
-{
-    List<Material> catalogo = new();
-    public void Agregar(Material m) => catalogo.Add(m);
-    public void PrestarLibro(string Titulo) 
-    {
-        var Libro = catalogo.OfType<Libro>().FirstOrDefault(L=>L.Titulo == Titulo); 
-        if (Libro == null || !Libro.Disponible)
-            throw new Exception("No disponible");
-        Libro.Disponible = false;
+        // Datos iniciales
+        bib.Agregar(new Libro("Cien Anios de Soledad", "Garcia Marquez", 1967, "Novela", 417));
+        bib.Agregar(new Libro("El Principito", "Saint-Exupery", 1943, "Infantil", 96));
+        bib.Agregar(new Libro("1984", "George Orwell", 1949, "Distopia", 328));
+
+        bib.Agregar(new Revista("National Geographic", "Varios", 2024, 312, "Ciencia y Naturaleza"));
+        bib.Agregar(new Revista("Scientific American", "Varios", 2023, 289, "Tecnologia"));
+
+        int opcion = 0;
+
+        while (opcion != 7) {
+
+            Console.WriteLine("\n========= MENU BIBLIOTECA =========");
+            Console.WriteLine("1. Ver catalogo completo");
+            Console.WriteLine("2. Ver libros disponibles");
+            Console.WriteLine("3. Prestar libro");
+            Console.WriteLine("4. Devolver libro");
+            Console.WriteLine("5. Buscar material por titulo");
+            Console.WriteLine("6. Agregar nuevo libro");
+            Console.WriteLine("7. Salir");
+            Console.Write("Seleccione una opcion: ");
+
+            opcion = Convert.ToInt32(Console.ReadLine());
+
+            try {
+
+                switch (opcion) {
+
+                    case 1:
+                        bib.ListarTodo();
+                        break;
+
+                    case 2:
+                        bib.ListarDisponibles();
+                        break;
+
+                    case 3:
+                        Console.Write("Titulo del libro a prestar: ");
+                        string prestar = Console.ReadLine();
+                        bib.PrestarLibro(prestar);
+                        break;
+
+                    case 4:
+                        Console.Write("Titulo del libro a devolver: ");
+                        string devolver = Console.ReadLine();
+                        bib.DevolverLibro(devolver);
+                        break;
+
+                    case 5:
+                        Console.Write("Titulo a buscar: ");
+                        string buscar = Console.ReadLine();
+                        var material = bib.BuscarPorTitulo(buscar);
+
+                        if (material != null)
+                            material.MostrarInfo();
+                        else
+                            Console.WriteLine("Material no encontrado.");
+                        break;
+
+                    case 6:
+
+                        Console.Write("Titulo: ");
+                        string titulo = Console.ReadLine();
+
+                        Console.Write("Autor: ");
+                        string autor = Console.ReadLine();
+
+                        Console.Write("Año: ");
+                        int anno = Convert.ToInt32(Console.ReadLine());
+
+                        Console.Write("Genero: ");
+                        string genero = Console.ReadLine();
+
+                        Console.Write("Numero de paginas: ");
+                        int paginas = Convert.ToInt32(Console.ReadLine());
+
+                        bib.Agregar(new Libro(titulo, autor, anno, genero, paginas));
+
+                        Console.WriteLine("Libro agregado correctamente.");
+                        break;
+
+                    case 7:
+                        Console.WriteLine("Saliendo del sistema...");
+                        break;
+
+                    default:
+                        Console.WriteLine("Opcion invalida.");
+                        break;
+                }
+
+            }
+            catch (Exception e) {
+                Console.WriteLine("Error: " + e.Message);
+            }
+
+        }
+
     }
 }
