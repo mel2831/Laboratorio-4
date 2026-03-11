@@ -10,27 +10,44 @@ class Program
         double estatura;
         string seguro;
         double imc;
+        string categoria;
 
         Console.WriteLine("Ingrese su nombre:");
-        nombre= Console.ReadLine();
+        nombre = Console.ReadLine();
         Console.WriteLine("Ingrese su edad:");
-        edad= int.Parse(Console.ReadLine());
+        edad = int.Parse(Console.ReadLine());
         Console.WriteLine("Ingrese su peso(Kg):");
-        peso= double.Parse(Console.ReadLine());
+        peso = double.Parse(Console.ReadLine());
         Console.WriteLine("Ingrese su estatura(m):");
-        estatura= double.Parse(Console.ReadLine());
+        estatura = double.Parse(Console.ReadLine());
         Console.WriteLine("¿Tiene seguro?(s/n):");
-        seguro= Console.ReadLine();
+        seguro = Console.ReadLine();
 
         imc = peso / (estatura * estatura);
+
+        if (imc < 18.5)
+        {
+            categoria="(Bajo peso)";
+        }else if(imc >= 18.5 && imc < 25)
+        {
+            categoria = "(Peso normal)";
+        }
+        else if(imc >= 25 && imc < 30)
+        {
+            categoria = "(Sobre peso)";
+        }
+        else
+        {
+            categoria="(Obesidad)";
+        }
 
         Console.WriteLine("==================================================");
         Console.WriteLine("||                 FICHA MÉDICA                 ||");
         Console.WriteLine("==================================================");
-        Console.WriteLine($"Nombre:  {nombre}");
-        Console.WriteLine($"Edad:  {edad}");
-        Console.WriteLine($"IMC:  {imc:F2}");
-        Console.WriteLine($"Seguro:  {seguro}");
+        Console.WriteLine($"||Nombre:  {nombre}                               ||");
+        Console.WriteLine($"||Edad:  {edad}                                     ||");
+        Console.WriteLine($"||IMC:  {imc:F2}"+ $"  Categoría: {categoria}            ||");
+        Console.WriteLine($"||Seguro:  {seguro}                                    ||");
         Console.WriteLine("==================================================");
     }
 }
