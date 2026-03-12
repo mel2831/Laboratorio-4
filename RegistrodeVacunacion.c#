@@ -1,0 +1,26 @@
+using System;
+class vacunacion
+{
+static void Main() 
+    {
+        int VacunasAlDia;
+        double TotalVacunas = 0;
+        double promedio;
+
+        for (int i =1; i<=7; i++) 
+        {
+            Console.WriteLine($"Ingrese el número de vacunas aplicadas el día {i}: ");
+            VacunasAlDia = int.Parse(Console.ReadLine());
+            TotalVacunas += VacunasAlDia;
+           
+        }
+        promedio = TotalVacunas / 7;
+
+        Console.WriteLine("===========================================");
+        Console.WriteLine("                Reporte Final              ");
+        Console.WriteLine("===========================================");
+        Console.WriteLine($"Total de vacunas aplicadas: {TotalVacunas}");
+        Console.WriteLine($"Promedio diario: {promedio:F2}");
+
+    }
+}
