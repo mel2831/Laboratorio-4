@@ -1,0 +1,34 @@
+using System;
+class ValidarTurnos
+{
+    static void Main() 
+    {
+        int turno;
+        string continuar = "s";
+        while (continuar=="s") 
+        {
+            Console.WriteLine("Ingrese el número del turno");
+            turno= int.Parse(Console.ReadLine());
+            if (turno <= 0)
+            {
+                while (turno <= 0)
+                {
+                    Console.WriteLine("Error: El turno debe ser mayor a cero.");
+                    Console.WriteLine("Ingrese el número del turno");
+                    turno = int.Parse(Console.ReadLine());
+                }
+                Console.WriteLine($"El turno {turno} ha sido registrado");
+
+            }
+            else 
+            { 
+                Console.WriteLine($"El turno {turno} ha sido registrado");
+            }
+
+            Console.WriteLine("¿Desea validar otro turno?(s/n)");
+            continuar = Console.ReadLine();
+
+           
+        }
+    } 
+}
