@@ -1,0 +1,23 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        float Base;
+        float altura;
+        float area;
+        
+        for (int i = 0; i < 1000; i++)
+        {
+            Console.WriteLine("Ingrese la base del rectángulo");
+            Base = float.Parse(Console.ReadLine());
+            
+            Console.WriteLine("Ingrese la altura del rectángulo");
+            altura = float.Parse(Console.ReadLine());
+            
+            area = (Base * altura);
+            Console.WriteLine($"área={area}");
+        }
+    }
+}
